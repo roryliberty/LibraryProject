@@ -7,7 +7,25 @@
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
+		<div id="add-book">
+			<button id="add-btn">Add Book</button>	
+		</div>
 		<div id="bookshelf"></div>
+		<div id="modal" class="modal">
+			<div id="modal-content">
+				<span class="close">&times;</span>
+				<h1>Add Book Details</h1>
+				<p id="title">Title:</p>
+				<input type="text" id="input=title">
+				<p id="author">Author:</p>
+				<input type="text" id="input-author">
+				<p id="pages">Pages:</p>
+				<input type="number" id="input-number">
+				<p id="read">Read:</p>
+				<input type="checkbox" id="input-read">
+				<button id="submit-btn">Submit</button>
+			</div>
+		</div>
     <script src="script.js"></script>
   </body>
 </html>
