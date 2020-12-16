@@ -1,5 +1,7 @@
 let myLibrary = [];
 const bookshelfDiv = document.querySelector('#bookshelf');
+const submitButton = document.querySelector('#submit-btn');
+
 
 function Book(title, author, pages, read) {
 	this.title = title;
@@ -16,19 +18,11 @@ function readOrNot(bool) {
 	return (bool === true) ? 'Read' : 'Not Read';
 }
 
-const testBookOne = new Book('Book One', 'Rainne Liberty', 42, true);
-//console.log(testBookOne.info());
-myLibrary.push(testBookOne);
-
-
-const testBookTwo = new Book('Book Two', 'Rory Liberty', 345, false);
-//console.log(testBookTwo.info());
-myLibrary.push(testBookTwo);
-
 function addBookToLibrary() {
 	// loop through array
+	console.log(myLibrary.length);
 	for (let i = 0; i < myLibrary.length; i++) {
-		console.log(myLibrary[i]);
+//		console.log(myLibrary[i]);
 
 		let protoDiv = document.createElement('div');
 		protoDiv.classList = 'cardDiv';
@@ -58,30 +52,49 @@ function addBookToLibrary() {
 	}
 }
 
+// get info from book entry form and add to myLibrary
+function bookEntry() {
+	let addTitle = document.querySelector('#input-title').value;
+	let addAuthor = document.querySelector('#input-author').value;
+	let addPages = document.querySelector('#input-pages').value;
+	let addRead = null;
+
+	if (document.querySelector('#input-read').checked == true) {
+		addRead = true;
+	} else {
+		addRead = false;
+	}
+
+	const newBook = new Book(addTitle, addAuthor, addPages, addRead);
+	myLibrary.push(newBook);
+	console.log(myLibrary);
+	addBookToLibrary();
+}
+
+// When Submit button is clicked
+submitButton.addEventListener('click', () => {
+		bookEntry();
+		modal.style.display = 'none';
+	});
+
 // Get the modal
 var modal = document.querySelector('#modal');
-
-// Get the button that opens the modal
 var btn = document.querySelector('#add-btn');
-
-// Get the <span> element that closes the modal
 var span = document.getElementsByClassName('close')[0];
 
 // When the user clicks on the button, open the modal
 btn.onclick = function() {
-  modal.style.display = "block";
+  modal.style.display = 'block';
 }
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
-  modal.style.display = "none";
+  modal.style.display = 'none';
 }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
   if (event.target == modal) {
-    modal.style.display = "none";
+    modal.style.display = 'none';
   }
 }
-
-addBookToLibrary();
