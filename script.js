@@ -1,8 +1,12 @@
 let myLibrary = [];
 const bookshelfDiv = document.querySelector('#bookshelf');
 const submitButton = document.querySelector('#submit-btn');
+const removeButtons = document.querySelectorAll('.remove-btn');
+const modal = document.querySelector('#modal');
+const btn = document.querySelector('#add-btn');
+const span = document.querySelectorAll('.close')[0];
 
-
+// Constructor
 function Book(title, author, pages, read) {
 	this.title = title;
 	this.author = author;
@@ -10,24 +14,43 @@ function Book(title, author, pages, read) {
 	this.read = read;
 }
 
-Book.prototype.info = function() {
-		return ('\'' + this.title + '\', ' + this.author + ', ' + this.pages + ' pages, ' + readOrNot(this.read));
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+  modal.style.display = 'block';
 }
 
-function readOrNot(bool) {
-	return (bool === true) ? 'Read' : 'Not Read';
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = 'none';
 }
 
-function addBookToLibrary() {
-	// loop through array
-	console.log(myLibrary.length);
-	for (let i = 0; i < myLibrary.length; i++) {
-//		console.log(myLibrary[i]);
+// get info from book entry form and add to myLibrary
+function bookEntry() {
+	modal.style.display = 'none';
+
+	let addTitle = document.querySelector('#input-title').value;
+	let addAuthor = document.querySelector('#input-author').value;
+	let addPages = document.querySelector('#input-pages').value;
+	let addRead = null;
+
+	if (document.querySelector('#input-read').checked == true) {
+		addRead = true;
+	} else {
+		addRead = false;
+	}
+
+	const newBook = new Book(addTitle, addAuthor, addPages, addRead);
+	myLibrary.push(newBook);
+	console.log(myLibrary);
+	showBooks();
+}
+
+// show the books on the page
+function showBooks() {
+	for (let i = (myLibrary.length - 1); i < myLibrary.length; i++) {
 
 		let protoDiv = document.createElement('div');
 		protoDiv.classList = 'cardDiv';
-		protoDiv.style.borderStyle = 'solid';
-		protoDiv.style.backgroundColor = 'orange';
 		bookshelfDiv.appendChild(protoDiv);
 
 		let protoTitle = document.createElement('h1');
@@ -49,52 +72,38 @@ function addBookToLibrary() {
 		protoRead.classList = 'cardP';
 		protoRead.textContent = readOrNot(myLibrary[i].read);
 		protoDiv.appendChild(protoRead);
+
+		let protoButton = document.createElement('button');
+		protoButton.classList = 'remove-btn';
+		protoButton.textContent = 'Remove Book';
+		protoDiv.appendChild(protoButton);
+
+//		protoButton.addEventListener('click', () => {
+//			myLibrary.splice(myLibrary)
+//		});
 	}
 }
 
-// get info from book entry form and add to myLibrary
-function bookEntry() {
-	let addTitle = document.querySelector('#input-title').value;
-	let addAuthor = document.querySelector('#input-author').value;
-	let addPages = document.querySelector('#input-pages').value;
-	let addRead = null;
 
-	if (document.querySelector('#input-read').checked == true) {
-		addRead = true;
-	} else {
-		addRead = false;
-	}
 
-	const newBook = new Book(addTitle, addAuthor, addPages, addRead);
-	myLibrary.push(newBook);
-	console.log(myLibrary);
-	addBookToLibrary();
+function readOrNot(bool) {
+	return (bool === true) ? 'Read' : 'Not Read';
 }
 
-// When Submit button is clicked
-submitButton.addEventListener('click', () => {
-		bookEntry();
-		modal.style.display = 'none';
+
+
+function removeBook() {
+	
+}
+
+
+
+submitButton.addEventListener('click', bookEntry);
+
+
+
+for (const removeButton of removeButtons) {
+	removeButton.addEventListener('click', function(e) {
+		console.log(e.target);
 	});
-
-// Get the modal
-var modal = document.querySelector('#modal');
-var btn = document.querySelector('#add-btn');
-var span = document.getElementsByClassName('close')[0];
-
-// When the user clicks on the button, open the modal
-btn.onclick = function() {
-  modal.style.display = 'block';
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = 'none';
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = 'none';
-  }
 }

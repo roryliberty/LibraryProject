@@ -1,3 +1,8 @@
+.cardDiv {
+	border-style: solid;
+	background-color: orange
+}
+
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
