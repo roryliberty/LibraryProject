@@ -1,31 +1,40 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>Library Project</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
-  </head>
-  <body>
-		<div id="add-book">
-			<button id="add-btn">Add Book</button>	
-		</div>
-		<div id="bookshelf"></div>
-		<div id="modal" class="modal">
-			<div id="modal-content">
-				<span class="close">&times;</span>
-				<h1>Add Book Details</h1>
-				<p id="title">Title:</p>
-				<input type="text" id="input-title">
-				<p id="author">Author:</p>
-				<input type="text" id="input-author">
-				<p id="pages">Pages:</p>
-				<input type="number" id="input-pages">
-				<p id="read">Read:</p>
-				<input type="checkbox" id="input-read">
-				<button id="submit-btn">Submit</button>
+	<html>
+  	<head>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width">
+    	<title>Library Project</title>
+    	<link href="style.css" rel="stylesheet" type="text/css" />
+  	</head>
+
+  	<body>
+			<div id="add-book">
+				<button id="add-btn">Add Book</button>	
 			</div>
-		</div>
-    <script src="script.js"></script>
-  </body>
-</html>
+
+			<div id="bookshelf"></div>
+
+			<div id="modal" class="modal">
+				<form id="form" action="script.js">
+					<span class="close">&times;</span>
+					<h1>Add Book Details</h1>
+
+					<p>Title:</p>
+					<input type="text" id="title">
+
+					<p>Author:</p>
+					<input type="text" id="author">
+
+					<p>Pages:</p>
+					<input type="number" id="pages">
+
+					<p>Read:</p>
+					<input type="checkbox" id="read">
+
+					<button id="submit-btn">Submit</button>
+				</form>
+			</div>
+
+			<script src="script.js"></script>
+		</body>
+	</html>
