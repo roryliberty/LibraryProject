@@ -14,6 +14,12 @@ function Book(title, author, pages, read) {
 	this.read = form.read.checked;
 }
 
+Book.prototype.readStatus = function () {
+	if (this.read === true) {
+		this.read = false;
+	} else this.read = true;
+}
+
 // Get info from modal form and add to myLibrary
 function bookEntry() {
 	event.preventDefault();
@@ -48,7 +54,6 @@ function resetBooks() {
 function showBooks(item) {
 	let protoDiv = document.createElement('div');
 	protoDiv.classList = 'cardDiv';
-	protoDiv.setAttribute('id', myLibrary.indexOf(item));
 	bookshelfDiv.appendChild(protoDiv);
 
 	let protoTitle = document.createElement('h1');
@@ -66,10 +71,17 @@ function showBooks(item) {
 	protoPages.textContent = item.pages;
 	protoDiv.appendChild(protoPages);
 
-	let protoRead = document.createElement('p');
-	protoRead.classList = 'cardP';
+	let protoRead = document.createElement('button');
+	protoRead.classList = 'read-btn';
 	protoRead.textContent = readOrNot(item.read);
 	protoDiv.appendChild(protoRead);
+	protoRead.addEventListener('click', () => {
+		if (protoRead.textContent === 'Read') {
+			protoRead.textContent = "Not Read";
+		} else protoRead.textContent = 'Read';
+		item.readStatus();
+	});
+		
 
 	let protoButton = document.createElement('button');
 	protoButton.classList = 'remove-btn';
