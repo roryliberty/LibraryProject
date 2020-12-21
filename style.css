@@ -6,13 +6,27 @@ body {
 	background-size: 100%;
 }
 
-.cardDiv {
-	border-style: solid;
-	background-color: orange
+#add-btn {
+	background:linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
+	background-color:#7892c2;
+	border-radius:10px;
+	border:1px solid #4e6096;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:20px;
+	padding:15px 40px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #283966;
 }
-
-.read-btn {
-	width: 100px;
+.add-btn:hover {
+	background:linear-gradient(to bottom, #476e9e 5%, #7892c2 100%);
+	background-color:#476e9e;
+}
+.add-btn:active {
+	position:relative;
+	top:1px;
 }
 
 /* The Modal (background) */
@@ -23,7 +37,19 @@ body {
   left: 50%; /* Centers modal */
   top: 50%; /* Centers modal */
 	transform: translate(-50%, -50%); /* Centers modal */
-  background-color: rgb(65, 76, 126); /* Black w/ opacity */
+  background-color: #476e9e; /* Black w/ opacity */
+	border-radius:10px;
+	border:1px solid #4e6096;
+	font-family:Arial;
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  text-align: end;
+  font-size: 28px;
+  font-weight: bold;
+	padding: 0px;
 }
 
 /* Modal Content/Box */
@@ -31,15 +57,45 @@ body {
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  width: 50%; /* Could be more or less, depending on screen size */
 }
 
-/* The Close Button */
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
+#form {
+	display: flex;
+	flex-direction: column;
+	margin: 8px;
+}
+
+#form h1 {
+	margin: 0px;
+}
+
+#form p {
+	margin-bottom: 2px;
+	align-self: center;
+}
+
+.modal-text-box {
+	width: 75%;
+	align-self: center;
+}
+
+#pages {
+	width: 33%;
+}
+
+#read {
+	align-self: center;
+	margin-bottom: 16px;
+} 
+
+#readP {
+	align-self: center;
+}
+
+#submit-btn {
+	width: 50%;
+	align-self: center;
 }
 
 .close:hover,
@@ -47,4 +103,13 @@ body {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+.read-btn {
+	width: 100px;
+}
+
+.cardDiv {
+	border-style: solid;
+	background-color: orange
 }
