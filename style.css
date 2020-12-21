@@ -1,9 +1,14 @@
 body {
 	display: flex;
 	justify-content: center;
+	flex-direction: column;
 	background-image: url(https://tinyurl.com/ycfa4vks);
 	background-repeat: no-repeat;
 	background-size: 100%;
+}
+
+#add-book {
+	align-self: center;
 }
 
 #add-btn {
@@ -52,6 +57,13 @@ body {
 	padding: 0px;
 }
 
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 /* Modal Content/Box */
 .modal-content {
   margin: 15% auto; /* 15% from the top and centered */
@@ -89,27 +101,33 @@ body {
 	margin-bottom: 16px;
 } 
 
-#readP {
-	align-self: center;
-}
-
 #submit-btn {
 	width: 50%;
 	align-self: center;
 }
 
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.read-btn {
-	width: 100px;
-}
-
 .cardDiv {
-	border-style: solid;
-	background-color: orange
+	/*background:linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);*/
+	background-color:#4caf50;
+	border-radius:10px;
+	border:1px solid black;
+	display:inline-block;
+	margin: 5px;
+	padding: 5px;
+}
+
+.status-btn, .remove-btn {
+	border-radius: 10px;
+	width: 100px;
+	margin: 5px;
+}
+
+.card-title {
+	text-align: center;
+	font-family:Arial;
+	font-size:20px;
+}
+
+.cardP {
+	text-align: center;
 }

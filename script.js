@@ -57,7 +57,7 @@ function showBooks(item) {
 	bookshelfDiv.appendChild(protoDiv);
 
 	let protoTitle = document.createElement('h1');
-	protoTitle.classList.add = 'cardTitle';
+	protoTitle.classList = 'card-title';
 	protoTitle.textContent = item.title;
 	protoDiv.appendChild(protoTitle);
 
@@ -72,7 +72,7 @@ function showBooks(item) {
 	protoDiv.appendChild(protoPages);
 
 	let protoRead = document.createElement('button');
-	protoRead.classList = 'read-btn';
+	protoRead.classList = 'status-btn';
 	protoRead.textContent = readOrNot(item.read);
 	protoDiv.appendChild(protoRead);
 	protoRead.addEventListener('click', () => {
