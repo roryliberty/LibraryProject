@@ -9,14 +9,14 @@
 
   	<body>
 			<div id="add-book">
-				<button id="add-btn">Add Book</button>	
+				<button id="add-btn" onclick="toggleModal()">Add Book</button>
 			</div>
 
 			<div id="bookshelf"></div>
 
 			<div id="modal" class="modal">
-				<form id="form" action="script.js">
-					<span class="close">&times;</span>
+				<form id="form">
+					<span class="close" onclick="toggleModal()">&times;</span>
 					<h1>Add Book Details</h1>
 
 					<p>Title:</p>
@@ -31,7 +31,7 @@
 					<p>Read:</p>
 					<input type="checkbox" id="read">
 
-					<button id="submit-btn">Submit</button>
+					<button id="submit-btn" onclick="bookEntry(event)">Submit</button>
 				</form>
 			</div>
 

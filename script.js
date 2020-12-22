@@ -1,99 +1,127 @@
-let myLibrary = [];
-const bookshelfDiv = document.querySelector('#bookshelf');
-const submitButton = document.querySelector('#submit-btn').addEventListener('click', bookEntry);
-const removeButtons = document.querySelectorAll('.remove-btn');
-const modal = document.querySelector('#modal');
-const addButton = document.querySelector('#add-btn').addEventListener('click', () => modal.style.display = 'block');
-const span = document.querySelectorAll('.close')[0].addEventListener('click', () => modal.style.display = 'none');
+// Tired of adding books every time, so just put some in by default
+let myLibrary = [
+	new Book('Title 1', 'Chris', 123, true),
+	new Book('Title 2', 'Chris', 123, true),
+	new Book('Title 3', 'Chris', 123, true),
+	new Book('Title 4', 'Chris', 123, true),
+];
+
+// Variable for the state of the modal
+let modalState = false;
+
+// Fuck typing document.querySelector all the time
+// This is way faster
+const q = ele => document.querySelector(ele)
+
+const bookshelfDiv = q('#bookshelf');
+const modal = q('#modal');
+const form = q('form')
 
 // Constructor
 function Book(title, author, pages, read) {
-	this.title = form.title.value;
-	this.author = form.author.value;
-	this.pages = form.pages.value + ' pages';
-	this.read = form.read.checked;
+	this.title = title;
+	this.author = author;
+	this.pages = pages + ' pages';
+	this.read = read;
 }
 
 Book.prototype.readStatus = function () {
-	if (this.read === true) {
-		this.read = false;
-	} else this.read = true;
+	this.read = !this.read;
 }
+
+// Display the default books
+myLibrary.forEach(showBooks)
 
 // Get info from modal form and add to myLibrary
-function bookEntry() {
-	event.preventDefault();
+function bookEntry(evt) {
+	// Because 'form' is used, this keeps the form from doing form things and reloading the page,
+	// because forms are stupid. Don't use forms.
+	evt.preventDefault();
 
-	if (form.title.value === '' || form.author.value === '' || form.pages.value === '') {
-		alert("Please fill out all information before clicking on Submit!")
-	} else {
-		modal.style.display = 'none';
+	// Close modal after submitting new book
+	toggleModal();
 
-		const newBook = new Book(title, author, pages, read);
-		myLibrary.push(newBook);
-		form.reset();
-		resetBooks();
+	// Object destructuring! So fun.
+	const {
+		title,
+		author,
+		pages,
+		read
+	} = form
+
+	// Check for any falsy values
+	if (!title.value || !author.value || !pages.value) {
+		return alert("Please fill out all information before clicking on Submit!")
 	}
+
+	// Use constructor properly to create a new book
+	const newBook = new Book(title.value, author.value, pages.value, read.value);
+
+	// Add it to array
+	myLibrary.push(newBook);
+
+	// Reset form
+	form.reset();
+
+	// Add the book: please note, I removed the code to erase all the books and rebuild
+	// Instead, just add the new book
+	showBooks(newBook)
 }
 
-// Works with the Remove Book button
-function resetBooks() {
-	const display = document.querySelector('#bookshelf');
-	const cards = document.querySelectorAll('.cardDiv');
-	
-	for (let i = 0; i < cards.length; i++) {
-		display.removeChild(cards[i]);
-	}
-
-	for (let j = 0; j < myLibrary.length; j++) {
-		showBooks(myLibrary[j]);
-	}
+// Should be obvious what this function does...
+function toggleModal() {
+	modal.style.display = modalState ? 'none' : 'block';
+	modalState = !modalState;
 }
 
 // Display the books on the page
 function showBooks(item) {
-	let protoDiv = document.createElement('div');
-	protoDiv.classList = 'cardDiv';
+
+	// More custom functions to reduce code
+	const create = ele => document.createElement(ele);
+
+	let protoDiv = create('div');
+	protoDiv.classList.add('cardDiv');
 	bookshelfDiv.appendChild(protoDiv);
 
-	let protoTitle = document.createElement('h1');
-	protoTitle.classList = 'card-title';
+	let protoTitle = create('h1');
+	protoTitle.classList.add('card-title');
 	protoTitle.textContent = item.title;
 	protoDiv.appendChild(protoTitle);
 
-	let protoAuthor = document.createElement('p');
-	protoAuthor.classList = 'cardP';
+	let protoAuthor = create('p');
+	protoAuthor.classList.add('cardP');
 	protoAuthor.textContent = item.author;
 	protoDiv.appendChild(protoAuthor);
 
-	let protoPages = document.createElement('p');
-	protoPages.classList = 'cardP';
+	let protoPages = create('p');
+	protoPages.classList.add('cardP');
 	protoPages.textContent = item.pages;
 	protoDiv.appendChild(protoPages);
 
-	let protoRead = document.createElement('button');
-	protoRead.classList = 'status-btn';
+	let protoRead = create('button');
+	protoRead.classList.add('status-btn');
 	protoRead.textContent = readOrNot(item.read);
 	protoDiv.appendChild(protoRead);
 	protoRead.addEventListener('click', () => {
-		if (protoRead.textContent === 'Read') {
-			protoRead.textContent = "Not Read";
-		} else protoRead.textContent = 'Read';
 		item.readStatus();
+		protoRead.textContent = readOrNot(item.read);
 	});
-		
 
-	let protoButton = document.createElement('button');
-	protoButton.classList = 'remove-btn';
+	let protoButton = create('button');
+	protoButton.classList.add('remove-btn');
 	protoButton.textContent = 'Remove Book';
 	protoDiv.appendChild(protoButton);
 
-	protoButton.addEventListener('click', () => {
+	protoButton.addEventListener('click', (evt) => {
 		myLibrary.splice(myLibrary.indexOf(item), 1);
-		resetBooks();
+		// Instead of removing all items and rebuilding, just find the one item and remove it
+		// Easy peasy
+		const card = evt.target.parentElement;
+		card.parentElement.removeChild(card);
 	});
 }
 
 function readOrNot(bool) {
-	return (bool === true) ? 'Read' : 'Not Read';
+	return bool ? 'Read' : 'Not Read';
 }
